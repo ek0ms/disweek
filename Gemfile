@@ -12,6 +12,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'foundation-rails'
 gem 'instagram'
 gem 'omniauth-instagram', github: 'ropiku/omniauth-instagram'
+gem 'koala'
+gem 'omniauth-facebook'
 
 group :development, :test do
   gem 'pry-rails'

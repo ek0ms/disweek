@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :welcome, only: [:index]
+  resources :locations
+  root to: 'users#index', via: :get
+  get 'auth/facebook', as: "auth_provider"
+  get 'auth/facebook/callback', to: 'users#login'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
