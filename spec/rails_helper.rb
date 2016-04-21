@@ -9,27 +9,27 @@ require 'coveralls'
 
 OmniAuth.config.test_mode = true
 omniauth_hash = {
-  "provider"=>"instagram",
-  "uid"=>"1234567890",
-  "info"=>{
-    "nickname"=>"Usar",
-    "name"=>"Insta User",
-    "email"=>nil,
-    "image"=>"https://scontent.cdninstagram.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
-    "bio"=>"",
-    "website"=>""
+  "provider" => "instagram",
+  "uid" => "1234567890",
+  "info" => {
+    "nickname" => "Usar",
+    "name" => "Insta User",
+    "email" => nil,
+    "image" => "https://scontent.cdninstagram.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+    "bio" => "",
+    "website" => ""
   },
-  "credentials"=>{
-    "token"=>"3153189506.5550f72.64ed45bd2a694a3388d4c0249d43fb60", "expires"=>false
+  "credentials" => {
+    "token" => "3153189506.5550f72.64ed45bd2a694a3388d4c0249d43fb60", "expires" => false
   },
-  "extra"=>{
-    "raw_info"=>{
-      "username"=>"Usar",
-      "bio"=>"",
-      "website"=>"",
-      "profile_picture"=>"https://scontent.cdninstagram.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
-      "full_name"=>"Insta User",
-      "id"=>"3153189506"
+  "extra" => {
+    "raw_info" => {
+      "username" => "Usar",
+      "bio" => "",
+      "website" => "",
+      "profile_picture" => "https://scontent.cdninstagram.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+      "full_name" => "Insta User",
+      "id" => "3153189506"
       }
   }
 }
