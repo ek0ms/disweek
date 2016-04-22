@@ -18,9 +18,7 @@ class LocationsController < ApplicationController
   end
 
   def uri
-    URI("https://api.instagram.com/v1/locations/search?lat=#{@lat}&lng=#{@lng}
-      &distance=750&access_token=
-        393459182.5550f72.40571a65e1074b8f95e17a89146768e3")
+    URI("https://api.instagram.com/v1/locations/search?lat=#{@lat}&lng=#{@lng}&distance=750&access_token=393459182.5550f72.40571a65e1074b8f95e17a89146768e3")
   end
 
   def create_locations_from_coordinates
