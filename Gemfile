@@ -14,6 +14,7 @@ gem 'devise'
 gem 'omniauth-instagram', github: 'ropiku/omniauth-instagram'
 gem 'omniauth'
 gem 'instagram'
+gem 'geocoder'
 
 group :development, :test do
   gem 'dotenv-rails'
@@ -28,6 +29,7 @@ end
 
 group :test do
   gem 'coveralls', require: false
+  gem 'database_cleaner'
 end
 
 group :development do
