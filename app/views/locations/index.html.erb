@@ -4,3 +4,9 @@
     <%= submit_tag "Search Near", :name => nil %>
   </p>
 <% end %>
+
+<% if !@current_search.empty? %>
+  <% @current_search.each do |location| %>
+    <li> <%= link_to location.first.name, location_path(location.first) %> </li>
+  <% end %>
+<% end %>

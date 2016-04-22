@@ -1,15 +1,16 @@
 class LocationsController < ApplicationController
   def index
     if params[:search].present?
+      @current_search = []
       create_locations_from_coordinates
     else
-      @locations = Location.near(params[:search], 50, order: :distance)
-      @locations = Location.all
+      @current_search = []
     end
   end
 
   def show
     @location = Location.find(params[:id])
+    @photos = @location.photos
   end
 
   def get_places
@@ -32,17 +33,18 @@ class LocationsController < ApplicationController
     @lng = current_location.geocode[1]
     @places = get_places
     @places.each do |place|
-      if Location.where(insta_id: place["id"]).empty?
-        if place["id"] != "0"
-          new_place = Location.new(
-            latitude: place["latitude"],
-            longitude: place["longitude"]
-          )
-          new_place.reverse_geocode
-          new_place.name = place["name"]
-          new_place.insta_id = place["id"]
-          new_place.save
-        end
+      if Location.where(insta_id: place["id"]).empty? && place["id"] != "0"
+        new_place = Location.new(
+          latitude: place["latitude"],
+          longitude: place["longitude"]
+        )
+        new_place.reverse_geocode
+        new_place.name = place["name"]
+        new_place.insta_id = place["id"]
+        new_place.save
+        @current_search << new_place
+      elsif !Location.where(insta_id: place["id"]).empty? && place["id"] != "0"
+        @current_search << Location.where(insta_id: place["id"])
       end
     end
   end

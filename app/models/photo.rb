@@ -6,6 +6,6 @@ class Photo < ActiveRecord::Base
   validates :username, presence: true
   validates :profile_picture, presence: true
   validates :caption, presence: true
-  validates :likes, presence: true, numericallity: true
-  validates :comments, presence: true, numericallity: true
+  validates :likes, presence: true, numericality: true
+  validates :comments, presence: true, numericality: true
 end
