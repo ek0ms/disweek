@@ -25,16 +25,21 @@ class LocationsController < ApplicationController
 
   def create_locations_from_coordinates
     address = params[:search].split(", ")
-    current_location = Location.new(street: address[0], city: address[1],
-     state: address[2])
+    current_location = Location.new(
+      street: address[0],
+      city: address[1],
+      state: address[2]
+    )
     @lat = current_location.geocode[0]
     @lng = current_location.geocode[1]
     @places = get_places
     @places.each do |place|
       if Location.where(insta_id: place["id"]).empty?
         if place["id"] != "0"
-          new_place = Location.new(latitude: place["latitude"],
-           longitude: place["longitude"])
+          new_place = Location.new(
+            latitude: place["latitude"],
+            longitude: place["longitude"]
+          )
           new_place.reverse_geocode
           new_place.name = place["name"]
           new_place.insta_id = place["id"]
