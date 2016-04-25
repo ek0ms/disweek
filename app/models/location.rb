@@ -16,12 +16,12 @@ class Location < ActiveRecord::Base
     [street, city, state].compact.join(', ')
   end
 
-  def uri
+  def photos_uri
     URI("https://api.instagram.com/v1/locations/#{insta_id}/media/recent?access_token=393459182.5550f72.40571a65e1074b8f95e17a89146768e3")
   end
 
   def create_photos
-    response = Net::HTTP.get_response(uri)
+    response = Net::HTTP.get_response(photos_uri)
     body = JSON.parse(response.body)["data"]
     body.each do |media|
       Photo.create(

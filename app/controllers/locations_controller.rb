@@ -2,7 +2,7 @@ class LocationsController < ApplicationController
   def index
     if params[:search].present?
       @current_search = []
-      create_locations_from_coordinates
+      create_location_from_coordinates
     else
       @current_search = []
     end
@@ -14,15 +14,15 @@ class LocationsController < ApplicationController
   end
 
   def get_places
-    response = Net::HTTP.get_response(uri)
+    response = Net::HTTP.get_response(places_uri)
     JSON.parse(response.body)["data"]
   end
 
-  def uri
+  def places_uri
     URI("https://api.instagram.com/v1/locations/search?lat=#{@lat}&lng=#{@lng}&distance=750&access_token=393459182.5550f72.40571a65e1074b8f95e17a89146768e3")
   end
 
-  def create_locations_from_coordinates
+  def create_location_from_coordinates
     address = params[:search].split(", ")
     current_location = Location.new(
       street: address[0],
@@ -42,7 +42,10 @@ class LocationsController < ApplicationController
         new_place.name = place["name"]
         new_place.insta_id = place["id"]
         new_place.save
-        @current_search << new_place
+        new_place.create_photos
+        array = []
+        array << new_place
+        @current_search << array
       elsif !Location.where(insta_id: place["id"]).empty? && place["id"] != "0"
         @current_search << Location.where(insta_id: place["id"])
       end
