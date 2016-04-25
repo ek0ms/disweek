@@ -8,7 +8,7 @@ class CreatePhotos < ActiveRecord::Migration
       t.string :profile_picture, null: false
       t.string :caption, null: false
       t.belongs_to :location, null: false
-      
+
       t.timestamps null: false
     end
   end

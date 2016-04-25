@@ -31,16 +31,16 @@ class Location < ActiveRecord::Base
     body.each do |media|
       if Photo.where(link: media["link"]).empty?
         Photo.create(
-        location: self,
-        link: media["link"],
-        low_res_link: media["images"]["low_resolution"]["url"],
-        created_on_insta: media["created_time"],
-        caption: media["caption"]["text"],
-        username: media["user"]["username"],
-        profile_picture: media["user"]["profile_picture"],
-        likes: media["likes"]["count"].to_i,
-        comments: media["comments"]["count"].to_i,
-        popularity: media["likes"]["count"].to_i + media["comments"]["count"].to_i
+          location: self,
+          link: media["link"],
+          low_res_link: media["images"]["low_resolution"]["url"],
+          created_on_insta: media["created_time"],
+          caption: media["caption"]["text"],
+          username: media["user"]["username"],
+          profile_picture: media["user"]["profile_picture"],
+          likes: media["likes"]["count"].to_i,
+          comments: media["comments"]["count"].to_i,
+          popularity: media["likes"]["count"].to_i + media["comments"]["count"].to_i
         )
       else
         photo = Photo.where(link: media["link"]).first
