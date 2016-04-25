@@ -1,14 +1,12 @@
 class Location < ActiveRecord::Base
   has_many :photos
   geocoded_by :address
-  after_validation :geocode
-  validates :street, presence: true
   validates :city, presence: true
   validates :state, presence: true
   validates :insta_id, presence: true
   validates :popularity, presence: true, numericality: true
   validates :name, uniqueness: { scope: [:latitude, :longitude] }
-  after_validation :reverse_geocode
+  after_validation :geocode, :reverse_geocode
 
   reverse_geocoded_by :latitude, :longitude do |obj, results|
     geo = results.first
