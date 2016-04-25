@@ -1,5 +1,9 @@
 <%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@location.latitude}%2C#{@location.longitude}" %>
 
+<% @photos.each do |photo| %>
+  <li><%= link_to image_tag("#{photo.low_res_link}"), "#{photo.link}" %></li>
+<% end %>
+
 <h3>Nearby locations</h3>
 <ul>
 <% for location in @location.nearbys(10) %>

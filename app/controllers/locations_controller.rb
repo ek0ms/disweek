@@ -1,29 +1,29 @@
 class LocationsController < ApplicationController
   def index
     if params[:search].present?
-      create_locations_from_coordinates
+      @current_search = []
+      create_location_from_coordinates
+      @ordered_search = Location.where(id: @current_search.map(&:id)).order(popularity: :desc)
     else
-      @locations = Location.near(params[:search], 50, order: :distance)
-      @locations = Location.all
+      @ordered_search = []
     end
   end
 
   def show
     @location = Location.find(params[:id])
+    @photos = @location.photos.order(popularity: :desc)
   end
 
   def get_places
-    response = Net::HTTP.get_response(uri)
+    response = Net::HTTP.get_response(places_uri)
     JSON.parse(response.body)["data"]
   end
 
-  def uri
-    URI("https://api.instagram.com/v1/locations/search?lat=#{@lat}&lng=#{@lng}
-      &distance=750&access_token=
-        393459182.5550f72.40571a65e1074b8f95e17a89146768e3")
+  def places_uri
+    URI("https://api.instagram.com/v1/locations/search?lat=#{@lat}&lng=#{@lng}&distance=750&access_token=393459182.5550f72.40571a65e1074b8f95e17a89146768e3")
   end
 
-  def create_locations_from_coordinates
+  def create_location_from_coordinates
     address = params[:search].split(", ")
     current_location = Location.new(
       street: address[0],
@@ -34,17 +34,21 @@ class LocationsController < ApplicationController
     @lng = current_location.geocode[1]
     @places = get_places
     @places.each do |place|
-      if Location.where(insta_id: place["id"]).empty?
-        if place["id"] != "0"
-          new_place = Location.new(
-            latitude: place["latitude"],
-            longitude: place["longitude"]
-          )
-          new_place.reverse_geocode
-          new_place.name = place["name"]
-          new_place.insta_id = place["id"]
-          new_place.save
-        end
+      if Location.where(insta_id: place["id"]).empty? && place["id"] != "0"
+        new_place = Location.new(
+          latitude: place["latitude"],
+          longitude: place["longitude"]
+        )
+        new_place.reverse_geocode
+        new_place.name = place["name"]
+        new_place.insta_id = place["id"]
+        new_place.save
+        new_place.create_photos
+        new_place.update_location_popularity
+        @current_search << new_place
+      elsif !Location.where(insta_id: place["id"]).empty? && place["id"] != "0"
+        old_place = Location.where(insta_id: place["id"]).first.update_location_popularity
+        @current_search << old_place
       end
     end
   end

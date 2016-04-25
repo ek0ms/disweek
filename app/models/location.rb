@@ -1,6 +1,12 @@
 class Location < ActiveRecord::Base
+  has_many :photos
   geocoded_by :address
   after_validation :geocode
+  validates :street, presence: true
+  validates :city, presence: true
+  validates :state, presence: true
+  validates :insta_id, presence: true
+  validates :popularity, presence: true, numericality: true
   validates :name, uniqueness: { scope: [:latitude, :longitude] }
   after_validation :reverse_geocode
 
@@ -13,5 +19,49 @@ class Location < ActiveRecord::Base
 
   def address
     [street, city, state].compact.join(', ')
+  end
+
+  def photos_uri
+    URI("https://api.instagram.com/v1/locations/#{insta_id}/media/recent?access_token=393459182.5550f72.40571a65e1074b8f95e17a89146768e3")
+  end
+
+  def create_photos
+    response = Net::HTTP.get_response(photos_uri)
+    body = JSON.parse(response.body)["data"]
+    body.each do |media|
+      if Photo.where(link: media["link"]).empty?
+        Photo.create(
+          location: self,
+          link: media["link"],
+          low_res_link: media["images"]["low_resolution"]["url"],
+          created_on_insta: media["created_time"],
+          caption: media["caption"]["text"],
+          username: media["user"]["username"],
+          profile_picture: media["user"]["profile_picture"],
+          likes: media["likes"]["count"].to_i,
+          comments: media["comments"]["count"].to_i,
+          popularity: media["likes"]["count"].to_i + media["comments"]["count"].to_i
+        )
+      else
+        photo = Photo.where(link: media["link"]).first
+        photo.update_attributes(
+          caption: media["caption"]["text"],
+          username: media["user"]["username"],
+          profile_picture: media["user"]["profile_picture"],
+          likes: media["likes"]["count"].to_i,
+          comments: media["comments"]["count"].to_i,
+          popularity: media["likes"]["count"].to_i + media["comments"]["count"].to_i
+        )
+      end
+    end
+  end
+
+  def update_location_popularity
+    popularity_count = 0
+    photos = self.photos
+    photos.each do |photo|
+      popularity_count += photo.popularity
+    end
+    self.update_attribute(:popularity, popularity_count)
   end
 end
