@@ -3,11 +3,13 @@ class LocationsController < ApplicationController
     if params[:search] == "Current Location"
       @current_search = []
       create_locations_from_ip
-      @ordered_search = Location.where(id: @current_search.map(&:id)).order(popularity: :desc)
+      @ordered_search = Location.where(id: @current_search.map(&:id)).order(
+        popularity: :desc)
     elsif params[:search].present?
       @current_search = []
       create_locations_from_address
-      @ordered_search = Location.where(id: @current_search.map(&:id)).order(popularity: :desc)
+      @ordered_search = Location.where(id: @current_search.map(&:id)).order(
+        popularity: :desc)
     else
       @ordered_search = []
     end
@@ -41,15 +43,14 @@ class LocationsController < ApplicationController
   end
 
   def create_locations_from_ip
-    if Rails.env.test? || Rails.env.development?
-     current_location ||= Geocoder.search("50.78.167.161").first
-    else
-     current_location ||= request.location
-    end
-
-    @lat = current_location.data["latitude"]
-    @lng = current_location.data["longitude"]
-    create_locations
+  if Rails.env.test? || Rails.env.development?
+    current_location ||= Geocoder.search("50.78.167.161").first
+  else
+    current_location ||= request.location
+  end
+  @lat = current_location.data["latitude"]
+  @lng = current_location.data["longitude"]
+  create_locations
   end
 
   def create_locations
