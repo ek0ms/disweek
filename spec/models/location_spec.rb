@@ -29,13 +29,12 @@ describe Location do
 
     it "updates photo object if it is already in the database" do
       location = create(:location)
-      create(:photo, location: location)
+      photo = create(:photo, location: location)
       expect(Photo.first.caption).to eq "poofs"
 
-      photos_uri = URI("https://api.instagram.com/v1/locations/#{location.insta_id}/media/recent?access_token=393459182.5550f72.40571a65e1074b8f95e17a89146768e3")
       location.create_photos
 
-      expect(Photo.find(photo).caption).to eq "let's puff"
+      expect(Photo.find(photo.id).caption).to eq "let's puff"
     end
   end
 
