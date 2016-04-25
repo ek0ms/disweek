@@ -68,7 +68,8 @@ class LocationsController < ApplicationController
         new_place.update_location_popularity
         @current_search << new_place
       elsif !Location.where(insta_id: place["id"]).empty? && place["id"] != "0"
-        old_place = Location.where(insta_id: place["id"]).first.update_location_popularity
+        old_place = Location.where(insta_id: place["id"]).first
+        old_place.update_location_popularity
         @current_search << old_place
       end
     end

@@ -1,8 +1,6 @@
 class Location < ActiveRecord::Base
   has_many :photos
   geocoded_by :address
-  geocoded_by :ip_address
-  validates :street, presence: true
   validates :city, presence: true
   validates :state, presence: true
   validates :insta_id, presence: true
