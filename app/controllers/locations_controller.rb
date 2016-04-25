@@ -3,13 +3,13 @@ class LocationsController < ApplicationController
     if params[:search] == "Current Location"
       @current_search = []
       create_locations_from_ip
-      @ordered_search = Location.where(id: @current_search.map(&:id)).order
-        (popularity: :desc)
+      @ordered_search = Location.where(id: @current_search.map(&:id)).order(
+        popularity: :desc)
     elsif params[:search].present?
       @current_search = []
       create_locations_from_address
-      @ordered_search = Location.where(id: @current_search.map(&:id)).order
-        (popularity: :desc)
+      @ordered_search = Location.where(id: @current_search.map(&:id)).order(
+        popularity: :desc)
     else
       @ordered_search = []
     end
