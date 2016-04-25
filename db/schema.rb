@@ -11,19 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160422201530) do
+ActiveRecord::Schema.define(version: 20160425191539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "locations", force: :cascade do |t|
-    t.string "name",      null: false
-    t.string "street",    null: false
-    t.string "city",      null: false
-    t.string "state",     null: false
-    t.float  "latitude"
-    t.float  "longitude"
-    t.string "insta_id"
+    t.string  "name",                   null: false
+    t.string  "street",                 null: false
+    t.string  "city",                   null: false
+    t.string  "state",                  null: false
+    t.float   "latitude"
+    t.float   "longitude"
+    t.string  "insta_id"
+    t.integer "popularity", default: 0
   end
 
   create_table "photos", force: :cascade do |t|
@@ -38,6 +39,7 @@ ActiveRecord::Schema.define(version: 20160422201530) do
     t.datetime "updated_at",                   null: false
     t.integer  "likes",            default: 0
     t.integer  "comments",         default: 0
+    t.integer  "popularity",       default: 0
   end
 
   create_table "users", force: :cascade do |t|

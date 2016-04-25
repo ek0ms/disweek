@@ -9,4 +9,5 @@ class Photo < ActiveRecord::Base
   validates :caption, presence: true
   validates :likes, presence: true, numericality: true
   validates :comments, presence: true, numericality: true
+  validates :popularity, presence: true, numericality: true
 end

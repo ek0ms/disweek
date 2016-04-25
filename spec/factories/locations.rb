@@ -7,5 +7,6 @@ FactoryGirl.define do
     latitude 42.3516967892647
     longitude -71.0612735152245
     insta_id "741814714"
+    popularity 0
   end
 end

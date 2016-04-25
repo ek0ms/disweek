@@ -3,14 +3,15 @@ class LocationsController < ApplicationController
     if params[:search].present?
       @current_search = []
       create_location_from_coordinates
+      @ordered_search = Location.where(id: @current_search.map(&:id)).order(popularity: :desc)
     else
-      @current_search = []
+      @ordered_search = []
     end
   end
 
   def show
     @location = Location.find(params[:id])
-    @photos = @location.photos
+    @photos = @location.photos.order(popularity: :desc)
   end
 
   def get_places
@@ -43,11 +44,11 @@ class LocationsController < ApplicationController
         new_place.insta_id = place["id"]
         new_place.save
         new_place.create_photos
-        array = []
-        array << new_place
-        @current_search << array
+        new_place.update_location_popularity
+        @current_search << new_place
       elsif !Location.where(insta_id: place["id"]).empty? && place["id"] != "0"
-        @current_search << Location.where(insta_id: place["id"])
+        old_place = Location.where(insta_id: place["id"]).first.update_location_popularity
+        @current_search << old_place
       end
     end
   end
