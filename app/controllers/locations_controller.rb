@@ -1,8 +1,12 @@
 class LocationsController < ApplicationController
   def index
-    if params[:search].present?
+    if params[:search] == "Current Location"
       @current_search = []
-      create_location_from_coordinates
+      create_locations_from_ip
+      @ordered_search = Location.where(id: @current_search.map(&:id)).order(popularity: :desc)
+    elsif params[:search].present?
+      @current_search = []
+      create_locations_from_address
       @ordered_search = Location.where(id: @current_search.map(&:id)).order(popularity: :desc)
     else
       @ordered_search = []
@@ -23,15 +27,32 @@ class LocationsController < ApplicationController
     URI("https://api.instagram.com/v1/locations/search?lat=#{@lat}&lng=#{@lng}&distance=750&access_token=393459182.5550f72.40571a65e1074b8f95e17a89146768e3")
   end
 
-  def create_location_from_coordinates
+  def create_locations_from_address
     address = params[:search].split(", ")
     current_location = Location.new(
       street: address[0],
       city: address[1],
       state: address[2]
     )
+
     @lat = current_location.geocode[0]
     @lng = current_location.geocode[1]
+    create_locations
+  end
+
+  def create_locations_from_ip
+    if Rails.env.test? || Rails.env.development?
+     current_location ||= Geocoder.search("50.78.167.161").first
+    else
+     current_location ||= request.location
+    end
+
+    @lat = current_location.data["latitude"]
+    @lng = current_location.data["longitude"]
+    create_locations
+  end
+
+  def create_locations
     @places = get_places
     @places.each do |place|
       if Location.where(insta_id: place["id"]).empty? && place["id"] != "0"
