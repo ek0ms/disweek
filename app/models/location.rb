@@ -40,13 +40,14 @@ class Location < ActiveRecord::Base
             profile_picture: media["user"]["profile_picture"],
             likes: media["likes"]["count"].to_i,
             comments: media["comments"]["count"].to_i,
-            popularity: media["likes"]["count"].to_i + media["comments"]["count"].to_i
+            popularity: media["likes"]["count"].to_i +
+             media["comments"]["count"].to_i
           )
         elsif db_photo.popularity != media["likes"]["count"].to_i +
             media["comments"]["count"].to_i || db_photo.caption !=
                 media["caption"]["text"] || db_photo.username !=
-                  media["user"]["username"] || db_photo.profile_picture !=
-                    media["user"]["profile_picture"]
+                    media["user"]["username"] || db_photo.profile_picture !=
+                        media["user"]["profile_picture"]
           photo = Photo.where(link: media["link"]).first
           photo.update_attributes(
             caption: media["caption"]["text"],
@@ -54,7 +55,8 @@ class Location < ActiveRecord::Base
             profile_picture: media["user"]["profile_picture"],
             likes: media["likes"]["count"].to_i,
             comments: media["comments"]["count"].to_i,
-            popularity: media["likes"]["count"].to_i + media["comments"]["count"].to_i
+            popularity: media["likes"]["count"].to_i +
+             media["comments"]["count"].to_i
           )
         end
       end
