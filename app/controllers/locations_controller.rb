@@ -17,7 +17,8 @@ class LocationsController < ApplicationController
 
   def show
     @location = Location.find(params[:id])
-    @photos = @location.photos.order(popularity: :desc)
+    @photos = @location.photos.where("created_on_insta > ?", (Time.now -
+     604800).to_i).order(popularity: :desc)
   end
 
   def get_places
@@ -43,14 +44,14 @@ class LocationsController < ApplicationController
   end
 
   def create_locations_from_ip
-  if Rails.env.test? || Rails.env.development?
-    current_location ||= Geocoder.search("50.78.167.161").first
-  else
-    current_location ||= request.location
-  end
-  @lat = current_location.data["latitude"]
-  @lng = current_location.data["longitude"]
-  create_locations
+    if Rails.env.test? || Rails.env.development?
+      current_location ||= Geocoder.search("50.78.167.161").first
+    else
+      current_location ||= request.location
+    end
+    @lat = current_location.data["latitude"]
+    @lng = current_location.data["longitude"]
+    create_locations
   end
 
   def create_locations
@@ -65,12 +66,15 @@ class LocationsController < ApplicationController
         new_place.name = place["name"]
         new_place.insta_id = place["id"]
         new_place.save
-        new_place.create_photos
-        new_place.update_location_popularity
+        if !new_place.create_photos.empty?
+          new_place.update_location_popularity
+        end
         @current_search << new_place
       elsif !Location.where(insta_id: place["id"]).empty? && place["id"] != "0"
         old_place = Location.where(insta_id: place["id"]).first
-        old_place.update_location_popularity
+        if !old_place.create_photos.empty?
+          old_place.update_location_popularity
+        end
         @current_search << old_place
       end
     end
