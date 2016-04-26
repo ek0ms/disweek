@@ -63,7 +63,7 @@ class Location < ActiveRecord::Base
 
   def update_location_popularity
     popularity_count = 0
-    photos = self.photos
+    photos = self.photos.where("created_on_insta > ?", (Time.now - 604800).to_i)
     photos.each do |photo|
       popularity_count += photo.popularity
     end
