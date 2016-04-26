@@ -5,6 +5,10 @@
   </p>
 <% end %>
 
+
+<%= link_to "Signout", destroy_user_session_path, method: :delete %>
+
+
 <% if !@ordered_search.empty? %>
   <% @ordered_search.each do |location| %>
     <li> <%= link_to location.name, location_path(location) %> </li>

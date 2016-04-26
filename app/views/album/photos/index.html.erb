@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <% @liked_photos.each do |photo_relation| %>
+      <li>
+        <%= link_to image_tag("#{photo_relation.photo.low_res_link}"), "#{photo_relation.photo.link}" %>
+        <%= button_to "Remove", user_photo_path(:id => photo_relation.id), :method => :delete %>
+      </li>
+    <% end %>
+  </body>
+</html>

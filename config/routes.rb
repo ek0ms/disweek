@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
-  get 'welcome/index'
-  root 'welcome#index'
+  root 'locations#index'
   resources :locations do
+    resources :photos
+  end
+  namespace :album, as: :user do
     resources :photos
   end
   devise_for :users,
    :controllers => { omniauth_callbacks: 'callbacks' }
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
