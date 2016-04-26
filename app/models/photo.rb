@@ -1,6 +1,8 @@
 class Photo < ActiveRecord::Base
   belongs_to :location
-  belongs_to :users
+  has_many :user_photos
+  has_many :users, through: :user_photos
+
   validates :link, presence: true
   validates :low_res_link, presence: true
   validates :created_on_insta, presence: true, uniqueness: true,

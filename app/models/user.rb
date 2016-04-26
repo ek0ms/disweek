@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :photos, through: :locations
+  has_many :user_photos
+  has_many :photos, through: :user_photos
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
