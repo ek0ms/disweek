@@ -10,8 +10,4 @@ class Photo < ActiveRecord::Base
   validates :likes, presence: true, numericality: true
   validates :comments, presence: true, numericality: true
   validates :popularity, presence: true, numericality: true
-
-  def self.relevant(time)
-    where("created_on_insta > ?", (Time.now - 604800).to_i)
-  end
 end
