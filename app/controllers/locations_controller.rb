@@ -44,14 +44,14 @@ class LocationsController < ApplicationController
   end
 
   def create_locations_from_ip
-  if Rails.env.test? || Rails.env.development?
-    current_location ||= Geocoder.search("50.78.167.161").first
-  else
-    current_location ||= request.location
-  end
-  @lat = current_location.data["latitude"]
-  @lng = current_location.data["longitude"]
-  create_locations
+    if Rails.env.test? || Rails.env.development?
+      current_location ||= Geocoder.search("50.78.167.161").first
+    else
+      current_location ||= request.location
+    end
+    @lat = current_location.data["latitude"]
+    @lng = current_location.data["longitude"]
+    create_locations
   end
 
   def create_locations
@@ -71,6 +71,7 @@ class LocationsController < ApplicationController
         @current_search << new_place
       elsif !Location.where(insta_id: place["id"]).empty? && place["id"] != "0"
         old_place = Location.where(insta_id: place["id"]).first
+        old_place.create_photos
         old_place.update_location_popularity
         @current_search << old_place
       end
