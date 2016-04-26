@@ -28,7 +28,8 @@ class Location < ActiveRecord::Base
     body = JSON.parse(response.body)["data"]
     body.each do |media|
       if Time.now - Time.at(media["created_time"].to_i) < 604800
-        if Photo.where(link: media["link"]).empty?
+        db_photo = Photo.where(link: media["link"]).first
+        if db_photo.nil?
           Photo.create(
             location: self,
             link: media["link"],
@@ -41,19 +42,27 @@ class Location < ActiveRecord::Base
             comments: media["comments"]["count"].to_i,
             popularity: media["likes"]["count"].to_i + media["comments"]["count"].to_i
           )
-        else
-          photo = Photo.where(link: media["link"]).first
-          photo.update_attributes(
-            caption: media["caption"]["text"],
-            username: media["user"]["username"],
-            profile_picture: media["user"]["profile_picture"],
-            likes: media["likes"]["count"].to_i,
-            comments: media["comments"]["count"].to_i,
-            popularity: media["likes"]["count"].to_i + media["comments"]["count"].to_i
-          )
+        elsif db_photo.popularity != media["likes"]["count"].to_i +
+         media["comments"]["count"].to_i || db_photo.caption !=
+          media["caption"]["text"] || db_photo.username !=
+           media["user"]["username"] || db_photo.profile_picture !=
+            media["user"]["profile_picture"]
+          update_photo
         end
       end
     end
+  end
+
+  def update_photo
+    photo = Photo.where(link: media["link"]).first
+    photo.update_attributes(
+      caption: media["caption"]["text"],
+      username: media["user"]["username"],
+      profile_picture: media["user"]["profile_picture"],
+      likes: media["likes"]["count"].to_i,
+      comments: media["comments"]["count"].to_i,
+      popularity: media["likes"]["count"].to_i + media["comments"]["count"].to_i
+    )
   end
 
   def update_location_popularity

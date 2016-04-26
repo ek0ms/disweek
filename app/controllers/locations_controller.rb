@@ -66,13 +66,15 @@ class LocationsController < ApplicationController
         new_place.name = place["name"]
         new_place.insta_id = place["id"]
         new_place.save
-        new_place.create_photos
-        new_place.update_location_popularity
+        if !new_place.create_photos.empty?
+          new_place.update_location_popularity
+        end
         @current_search << new_place
       elsif !Location.where(insta_id: place["id"]).empty? && place["id"] != "0"
         old_place = Location.where(insta_id: place["id"]).first
-        old_place.create_photos
-        old_place.update_location_popularity
+        if !old_place.create_photos.empty?
+          old_place.update_location_popularity
+        end
         @current_search << old_place
       end
     end
