@@ -27,29 +27,31 @@ class Location < ActiveRecord::Base
     response = Net::HTTP.get_response(photos_uri)
     body = JSON.parse(response.body)["data"]
     body.each do |media|
-      if Photo.where(link: media["link"]).empty?
-        Photo.create(
-          location: self,
-          link: media["link"],
-          low_res_link: media["images"]["low_resolution"]["url"],
-          created_on_insta: media["created_time"],
-          caption: media["caption"]["text"],
-          username: media["user"]["username"],
-          profile_picture: media["user"]["profile_picture"],
-          likes: media["likes"]["count"].to_i,
-          comments: media["comments"]["count"].to_i,
-          popularity: media["likes"]["count"].to_i + media["comments"]["count"].to_i
-        )
-      else
-        photo = Photo.where(link: media["link"]).first
-        photo.update_attributes(
-          caption: media["caption"]["text"],
-          username: media["user"]["username"],
-          profile_picture: media["user"]["profile_picture"],
-          likes: media["likes"]["count"].to_i,
-          comments: media["comments"]["count"].to_i,
-          popularity: media["likes"]["count"].to_i + media["comments"]["count"].to_i
-        )
+      if Time.now - Time.at(media["created_time"].to_i) < 604800
+        if Photo.where(link: media["link"]).empty?
+          Photo.create(
+            location: self,
+            link: media["link"],
+            low_res_link: media["images"]["low_resolution"]["url"],
+            created_on_insta: media["created_time"].to_i,
+            caption: media["caption"]["text"],
+            username: media["user"]["username"],
+            profile_picture: media["user"]["profile_picture"],
+            likes: media["likes"]["count"].to_i,
+            comments: media["comments"]["count"].to_i,
+            popularity: media["likes"]["count"].to_i + media["comments"]["count"].to_i
+          )
+        else
+          photo = Photo.where(link: media["link"]).first
+          photo.update_attributes(
+            caption: media["caption"]["text"],
+            username: media["user"]["username"],
+            profile_picture: media["user"]["profile_picture"],
+            likes: media["likes"]["count"].to_i,
+            comments: media["comments"]["count"].to_i,
+            popularity: media["likes"]["count"].to_i + media["comments"]["count"].to_i
+          )
+        end
       end
     end
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425213934) do
+ActiveRecord::Schema.define(version: 20160425235942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20160425213934) do
   create_table "photos", force: :cascade do |t|
     t.string   "link",                         null: false
     t.string   "low_res_link",                 null: false
-    t.string   "created_on_insta",             null: false
+    t.integer  "created_on_insta",             null: false
     t.string   "username",                     null: false
     t.string   "profile_picture",              null: false
     t.string   "caption",                      null: false
