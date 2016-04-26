@@ -17,8 +17,8 @@ class LocationsController < ApplicationController
 
   def show
     @location = Location.find(params[:id])
-    @photos = @location.photos.where("created_on_insta > ?", (Time.now - 604800).to_i)
-    .order(popularity: :desc)
+    @photos = @location.photos.where("created_on_insta > ?", (Time.now -
+     604800).to_i).order(popularity: :desc)
   end
 
   def get_places

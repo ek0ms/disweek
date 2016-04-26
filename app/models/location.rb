@@ -43,9 +43,9 @@ class Location < ActiveRecord::Base
             popularity: media["likes"]["count"].to_i + media["comments"]["count"].to_i
           )
         elsif db_photo.popularity != media["likes"]["count"].to_i +
-         media["comments"]["count"].to_i || db_photo.caption !=
-          media["caption"]["text"] || db_photo.username !=
-           media["user"]["username"] || db_photo.profile_picture !=
+          media["comments"]["count"].to_i || db_photo.caption !=
+            media["caption"]["text"] || db_photo.username !=
+            media["user"]["username"] || db_photo.profile_picture !=
             media["user"]["profile_picture"]
               photo = Photo.where(link: media["link"]).first
               photo.update_attributes(
