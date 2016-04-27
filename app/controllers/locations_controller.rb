@@ -11,7 +11,7 @@ class LocationsController < ApplicationController
       @ordered_search = Location.where(id: @current_search.map(&:id)).order(
         popularity: :desc)
     else
-      @ordered_search = []
+      render "welcome/index"
     end
   end
 

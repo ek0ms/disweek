@@ -1,19 +1,14 @@
 <%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@location.latitude}%2C#{@location.longitude}" %>
 
-<% @photos.each do |photo| %>
-  <li>
-    <%= link_to image_tag("#{photo.low_res_link}"), "#{photo.link}" %>
-    <%= form_for @photo do |f|%>
+<div class="row small-up-1 medium-up-2 large-up-4">
+  <% @photos.each do |photo| %>
+    <div class="column">
+      <img src="<%=photo.low_res_link%>" class="thumbnail">
+      <%= form_for @photo do |f|%>
       <%= f.hidden_field :photo_id, multiple: true, value: photo.id %>
       <%= f.hidden_field :location_id, multiple: true, value: photo.location_id %>
       <%= f.submit "Add", class: "button" %>
-    <% end %>
-  </li>
-<% end %>
-
-<h3>Nearby locations</h3>
-<ul>
-<% for location in @location.nearbys(10) %>
-  <li><%= link_to location.address, location %> (<%= location.distance.round(2) %> miles)</li>
-<% end %>
-</ul>
+      <% end %>
+    </div>
+  <% end %>
+</div>

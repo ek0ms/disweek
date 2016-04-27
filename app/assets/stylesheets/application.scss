@@ -17,10 +17,77 @@
  */
 
 
- //**********TOPBAR**********//
- 
 
-//**********FOOTER**********//
+
+
+ $menu-background: #333;
+
+ //**********TOPBAR**********//
+ body {marging-top: 2rem;}
+
+
+ .title-bar {
+   background: $menu-background;
+   padding: 0.9rem;
+ }
+
+ .top-bar {
+   background: $menu-background;
+
+   ul {
+     background: $menu-background;
+
+     li {
+       background: $menu-background;
+
+         a {
+           color: #fff;
+       }
+     }
+   }
+ }
+
+ .menu-text {
+   color: #fff;
+
+   @media only screen and (max-width: 40em) {
+     display: none !important;
+   }
+ }
+
+ @media only screen and (min-width: 40em) {
+   .menu:last-child {
+     border-left: 1px solid #4e4e4e;
+   }
+
+   .menu:first-child {
+     border-left: none;
+   }
+
+   .menu {
+     li:not(:last-child) {
+       border-right: 1px solid #4e4e4e;
+     }
+   }
+ }
+
+ .dropdown.menu .submenu {
+   border: none;
+ }
+
+ .dropdown.menu .is-dropdown-submenu-parent.is-right-arrow>a::after {
+   border-color: #fff transparent transparent;
+ }
+
+ .is-drilldown-submenu-parent>a::after {
+   border-color: transparent transparent transparent #fff;
+ }
+
+ .js-drilldown-back::before {
+   border-color: transparent #fff transparent transparent;
+ }
+
+//**********HERO**********//
  @mixin vertical-align {
   position: relative;
   top: 50%;
@@ -33,20 +100,91 @@
 .hero {
   background: url('http://i.imgur.com/RoIgMcl.jpg') no-repeat center center;
 	background-size: cover;
-  height: 65vh;
+  height: 78vh;
   overflow: hidden;
-  h1 {
-    color: #fff;
-    text-align: center;
+  .row {
     @include vertical-align;
   }
 }
 
+//**********SEARCH**********//
+  .container-4{
+    overflow: hidden;
+    width: 50rem;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  .container-4 input#search{
+    width: 50rem;
+    height: 3rem;
+    background: #2b303b;
+    border: none;
+    font-size: 13pt;
+    float: left;
+    color: #fff;
+    padding-left: 15px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+
+  .container-4 input#search::-webkit-input-placeholder {
+     color: #65737e;
+  }
+
+  .container-4 input#search:-moz-placeholder { /* Firefox 18- */
+     color: #65737e;
+  }
+
+  .container-4 input#search::-moz-placeholder {  /* Firefox 19+ */
+     color: #65737e;
+  }
+
+  .container-4 input#search:-ms-input-placeholder {
+     color: #65737e;
+  }
+
+  .container-4 button.icon{
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-bottomright: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+    border: none;
+    background: #232833;
+    height: 3rem;
+    width: 3rem;
+    color: #4f5b66;
+    opacity: 0;
+    font-size: 13pt;
+
+    -webkit-transition: all .55s ease;
+    -moz-transition: all .55s ease;
+    -ms-transition: all .55s ease;
+    -o-transition: all .55s ease;
+    transition: all .55s ease;
+  }
+
+  .container-4:hover button.icon, .container-4:active button.icon, .container-4:focus button.icon{
+    outline: none;
+    opacity: 1;
+    margin-left: -3rem;
+  }
+
+  .container-4:hover button.icon:hover{
+    background: white;
+  }
+
+
+  //**********FOOTER**********//
 .footer {
   background-color: #292c2f;
   text-align: center;
   font-size: 1.2rem;
-  padding: 5rem;
+  padding: 2.5rem;
   p {
     &.slogan {
       color: #8d9093;
