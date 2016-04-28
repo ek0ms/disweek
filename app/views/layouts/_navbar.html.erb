@@ -14,7 +14,12 @@
       <% if !current_user.nil? %>
         <li><a href="<%=user_photos_path%>">Album</a></li>
         <li class="has-submenu">
-          <a href="#"><img src="<%=current_user.pic%>" height="45" width="45"> <%=current_user.nickname%></a>
+          <a href="#">
+            <span class="avatar">
+              <img src="<%=current_user.pic%>" height="40" width="40">
+            </span>
+               <%=current_user.nickname%>
+         </a>
           <ul class="submenu menu vertical" data-submenu>
             <li><a href="https://www.instagram.com/<%=current_user.nickname%>" target="_blank" style="target-new: tab;">IG Profile</li>
             <li><a href="<%=destroy_user_session_path%>" data-method="delete">Sign Out</a></li>

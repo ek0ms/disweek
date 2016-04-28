@@ -121,7 +121,12 @@ $global-radius: 4px;
  //**********TOPBAR**********//
  $menu-background: #292c2f;
  body {marging-top: 2rem;}
-
+ @mixin border-radius($radius) {
+   -webkit-border-radius: $radius;
+      -moz-border-radius: $radius;
+       -ms-border-radius: $radius;
+           border-radius: $radius;
+ }
 
  .title-bar {
    background: $menu-background;
@@ -139,6 +144,12 @@ $global-radius: 4px;
 
          a {
            color: #fff;
+           .avatar {
+             img {
+               border-collapse: separate;
+               @include border-radius(100px);
+             }
+           }
        }
      }
    }
