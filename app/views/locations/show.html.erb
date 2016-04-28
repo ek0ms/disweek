@@ -2,23 +2,39 @@
 <br />
 <div class="show-header">
   <h1><%= @location.name %></h1>
+  <br />
+  <br />
+
   <img src="http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=<%=@location.latitude%>%2C<%=@location.longitude%>" class="thumbnail">
 </div>
 <br />
 <br />
 <br />
-<div class="row small-up-1 medium-up-3 large-up-3">
-  <% @photos.each do |photo| %>
-    <div class="column">
-      <img src="<%=photo.low_res_link%>" class="thumbnail">
-      <%= form_for @photo do |f|%>
-      <%= f.hidden_field :photo_id, multiple: true, value: photo.id %>
-      <%= f.hidden_field :location_id, multiple: true, value: photo.location_id %>
-      <%= f.submit "Add", class: "button" %>
-      <% end %>
-    </div>
-  <% end %>
+<div class ="row">
+  <div class="small-up-1 medium-up-3 large-up-3">
+    <% @photos.each do |photo| %>
+      <div class="column">
+        <div class="show-image-overlay">
+          <div class="image-wrapper overlay-fade-in">
+            <img src="<%=photo.low_res_link%>" class="bigger-photo">
+              <div class="image-overlay-content">
+                <h2>soemthing</h2>
+                <p class="price">morethings</p>
+              </div>
+          </div>
+        </div>
+        <%= form_for @photo do |f|%>
+        <%= f.hidden_field :photo_id, multiple: true, value: photo.id %>
+        <%= f.hidden_field :location_id, multiple: true, value: photo.location_id %>
+        <%= f.submit "Add", class: "button" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>
+
+
+
 
 <br />
 <br />

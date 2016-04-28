@@ -16,6 +16,16 @@
 
  */
 
+.bigger-photo {
+  width: 100%;
+  height: 100%;
+  border: 4px solid #fefefe;
+  radius: 0;
+  shadow: 0 0 0 1px rgba(#0a0a0a, 0.2);
+}
+
+
+
 .show-header {
   text-align: center;
 }
@@ -27,15 +37,18 @@
 //**********IMAGEOVERLAY**********//
 $global-radius: 4px;
 
+.location-image-overlay{
 
-.image-wrapper {
+  .image-wrapper {
   width: 100%;
   height: 100%;
-  border: 1px solid rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.2);
   overflow: hidden;
   position: relative;
   text-align: center;
   border-radius: $global-radius;
+  margin-bottom: 1rem;
+
 }
 
 .image-overlay-content {
@@ -116,7 +129,72 @@ $global-radius: 4px;
     transition-delay: 0.2s;
   }
 }
+}
 
+
+//**********SHOWIMAGEOVERLAY**********//
+.show-image-overlay{
+  .image-wrapper {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(0,0,0,0.2);
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  border-radius: $global-radius;
+  margin-bottom: 1rem;
+
+  }
+
+  .image-overlay-content {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0
+  }
+
+  // modifier classes
+
+  .overlay-fade-in {
+
+    p {
+      letter-spacing: 0.15em;
+      color: #f4f4f4;
+      font-size: 28px;
+      opacity: 0;
+      transition: all 0.4s ease-in-out;
+    }
+
+    .image-overlay-content {
+      opacity: 0;
+      background-color: rgba(0,0,0, 0.4);
+      transition: all 0.4s ease-in-out;
+    }
+
+    h2 {
+      color: #f2f2f2;
+      font-size: 1.8rem;
+      margin-top: 27%;
+      opacity: 0;
+      transition: all 0.2s ease-in-out;
+      background: rgba(0,0,0,0.7);
+    }
+
+    &:hover .image-overlay-content {
+      opacity: 1;
+    }
+
+    &:hover h2, p {
+      opacity: 1;
+    }
+
+    &:hover p {
+      transition-delay: 0.1s;
+    }
+  }
+}
 
  //**********TOPBAR**********//
  $menu-background: #292c2f;

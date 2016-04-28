@@ -6,20 +6,26 @@
 <br />
 <br />
 <br />
-<div class="row small-up-1 medium-up-3 large-up-3">
-  <% if !@ordered_search.empty? %>
-    <% @ordered_search.each do |location| %>
-    <div class="column image-wrapper overlay-fade-in">
-      <img src="<%=location.photos.where("created_on_insta > ?", (Time.now -
-       604800).to_i).order(popularity: :desc).first.low_res_link%>" class="thumbnail">
-       <div class="image-overlay-content">
-         <h2><%= location.name %></h2>
-         <p class="price"><%=location.street%></p>
-         <a href="<%=location_path(location)%>" class="button">VIEW MORE</a>
-       </div>
-    </div>
+<div class="row">
+  <div class="small-up-1 medium-up-3 large-up-3">
+    <% if !@ordered_search.empty? %>
+      <% @ordered_search.each do |location| %>
+      <div class="column">
+        <div class="location-image-overlay">
+          <div class="image-wrapper overlay-fade-in">
+            <img src="<%=location.photos.where("created_on_insta > ?", (Time.now -
+             604800).to_i).order(popularity: :desc).first.low_res_link%>" class="bigger-photo">
+             <div class="image-overlay-content">
+               <h2><%= location.name %></h2>
+               <p class="street"><%=location.street%></p>
+               <a href="<%=location_path(location)%>" class="button">VIEW MORE</a>
+             </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
 <br />
 <br />
