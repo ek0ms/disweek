@@ -16,13 +16,110 @@
 
  */
 
+.show-header {
+  text-align: center;
+}
+
+.location-index-header {
+  text-align: center;
+}
+
+//**********IMAGEOVERLAY**********//
+$global-radius: 4px;
 
 
+.image-wrapper {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(0,0,0,0.04);
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  border-radius: $global-radius;
+}
 
+.image-overlay-content {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0
+}
 
- $menu-background: #333;
+// modifier classes
+
+.overlay-fade-in {
+
+  p {
+    letter-spacing: 0.15em;
+    color: #f4f4f4;
+    font-size: 28px;
+    opacity: 0;
+    transition: all 0.2s linear;
+  }
+
+  img {
+    transition: all 0.2s linear;
+  }
+
+  .image-overlay-content {
+    opacity: 0;
+    background-color: rgba(0,0,0, 0.4);
+    transition: all 0.4s ease-in-out;
+  }
+
+  h2 {
+    color: #f2f2f2;
+    font-size: 1.8rem;
+    margin-top: 27%;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+    background: rgba(0,0,0,0.7);
+  }
+
+  .button {
+    display: inline-block;
+    text-decoration: none;
+    padding: 7px 14px;
+    background: #FFF;
+    color: #222;
+    text-transform: uppercase;
+    box-shadow: 0 0 1px #000;
+    position: relative;
+    border: 1px solid #999;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      box-shadow: 0 0 5px #000;
+    }
+  }
+
+  &:hover img {
+    transform: scale(1.2);
+  }
+
+  &:hover .image-overlay-content {
+    opacity: 1;
+  }
+
+  &:hover h2, p, .button {
+    opacity: 1;
+  }
+
+  &:hover p {
+    transition-delay: 0.1s;
+  }
+
+  &:hover .button {
+    transition-delay: 0.2s;
+  }
+}
+
 
  //**********TOPBAR**********//
+ $menu-background: #292c2f;
  body {marging-top: 2rem;}
 
 
@@ -90,7 +187,7 @@
 //**********HERO**********//
  @mixin vertical-align {
   position: relative;
-  top: 50%;
+  top: 38%;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
@@ -100,8 +197,13 @@
 .hero {
   background: url('http://i.imgur.com/RoIgMcl.jpg') no-repeat center center;
 	background-size: cover;
-  height: 78vh;
+  height: 100vh;
   overflow: hidden;
+  h1 {
+   color: #fff;
+   text-align: center;
+   @include vertical-align;
+ }
   .row {
     @include vertical-align;
   }
@@ -184,7 +286,7 @@
   background-color: #292c2f;
   text-align: center;
   font-size: 1.2rem;
-  padding: 2.5rem;
+  padding: 1.5rem;
   p {
     &.slogan {
       color: #8d9093;

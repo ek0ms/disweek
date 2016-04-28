@@ -5,11 +5,25 @@
     <title></title>
   </head>
   <body>
-    <% @liked_photos.each do |photo_relation| %>
-      <li>
-        <%= link_to image_tag("#{photo_relation.photo.low_res_link}"), "#{photo_relation.photo.link}" %>
-        <%= button_to "Remove", user_photo_path(:id => photo_relation.id), :method => :delete %>
-      </li>
-    <% end %>
+    <br />
+    <br />
+    <div class="location-index-header">
+      <h1>YO ALBUM BRUH</h1>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div class="row small-up-1 medium-up-3 large-up-3">
+      <% @liked_photos.each do |photo_relation| %>
+        <div class="column">
+          <a href="<%=photo_relation.photo.link%>"><img src="<%=photo_relation.photo.low_res_link%>" class="thumbnail"></a>
+          <%= button_to "Remove", user_photo_path(:id => photo_relation.id), :method => :delete %>
+
+        </div>
+      <% end %>
+    </div>
+    <br />
+    <br />
+    <br />
   </body>
 </html>

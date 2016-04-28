@@ -1,6 +1,13 @@
-<%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@location.latitude}%2C#{@location.longitude}" %>
-
-<div class="row small-up-1 medium-up-2 large-up-4">
+<br />
+<br />
+<div class="show-header">
+  <h1><%= @location.name %></h1>
+  <img src="http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=<%=@location.latitude%>%2C<%=@location.longitude%>" class="thumbnail">
+</div>
+<br />
+<br />
+<br />
+<div class="row small-up-1 medium-up-3 large-up-3">
   <% @photos.each do |photo| %>
     <div class="column">
       <img src="<%=photo.low_res_link%>" class="thumbnail">
@@ -12,3 +19,9 @@
     </div>
   <% end %>
 </div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
