@@ -16,11 +16,12 @@
 
  */
 
-.search-container {
-  padding: 5px;
-  background-color: rgba(150, 150, 150, 0.5);
-  border: 1px solid white;
-}
+
+// .search-container {
+//   padding: 5rem;
+//   background-color: rgba(150, 150, 150, 0.5);
+//   border: 1px solid white;
+// }
 
 
 .bigger-photo {
@@ -39,6 +40,58 @@
 
 .location-index-header {
   text-align: center;
+}
+
+
+
+
+//**********HEART**********//
+.heart {
+background: url(http://demos.9lessons.info/twitterHeart/images/web_heart_animation.png);
+background-position: left;
+background-repeat: no-repeat;
+height: 50px;
+width: 50px;
+cursor: pointer;
+position: absolute;
+left:-14px;
+background-size: 1450px; //actual background size 2900px
+}
+.heart:hover
+{
+background-position: right; //displaying last heart frame
+}
+.likeCount
+{
+margin-top: 13px;
+margin-left: 28px;
+font-size: 16px;
+color: #999999
+}
+
+@-webkit-keyframes heartBlast
+{
+0% {background-position: left;}
+100% {background-position: right;}
+}
+
+@keyframes heartBlast
+{
+0% {background-position: left;}
+100% {background-position: right;}
+}
+
+.heartAnimation
+{
+-webkit-animation-name: heartBlast; //webkit broswers
+animation-name: heartBlast;
+-webkit-animation-duration: .8s;
+animation-duration: .8s;
+-webkit-animation-iteration-count: 1;
+animation-iteration-count: 1;
+-webkit-animation-timing-function: steps(28); //background frames count 28
+animation-timing-function: steps(28);
+background-position: right;
 }
 
 //**********IMAGEOVERLAY**********//
@@ -166,51 +219,61 @@ $global-radius: 4px;
 
   .overlay-fade-in {
 
-    p {
-      letter-spacing: 0.15em;
-      color: #f4f4f4;
-      font-size: 28px;
+    h1 {
+      color: #f2f2f2;
+      font-size: 1.8rem;
+      margin-top: 70%;
       opacity: 0;
-      transition: all 0.4s ease-in-out;
+      transition: all 0.2s ease-in-out;
+      background: rgba(0,0,0,0.7);
+      padding: 0.7rem;
+      overflow: hidden;
+      text-align: left;
     }
 
     .image-overlay-content {
       opacity: 0;
-      background-color: rgba(0,0,0, 0.4);
       transition: all 0.4s ease-in-out;
     }
 
     h2 {
       color: #f2f2f2;
       font-size: 1.8rem;
-      margin-top: 27%;
+      margin-top: 0%;
       opacity: 0;
       transition: all 0.2s ease-in-out;
       background: rgba(0,0,0,0.7);
+      padding: 0.3rem;
+      text-align: left;
     }
 
     &:hover .image-overlay-content {
       opacity: 1;
     }
 
-    &:hover h2, p {
+    &:hover h2, h1 {
       opacity: 1;
-    }
-
-    &:hover p {
-      transition-delay: 0.1s;
     }
   }
 }
 
  //**********TOPBAR**********//
- $menu-background: #292c2f;
- body {marging-top: 2rem;}
  @mixin border-radius($radius) {
    -webkit-border-radius: $radius;
       -moz-border-radius: $radius;
        -ms-border-radius: $radius;
            border-radius: $radius;
+ }
+ $menu-background: #2b303b;
+ body {
+   marging-top: 2rem;
+ }
+
+ .avatar {
+   img {
+     border-collapse: separate;
+     @include border-radius(100px);
+   }
  }
 
  .title-bar {
@@ -229,12 +292,7 @@ $global-radius: 4px;
 
          a {
            color: #fff;
-           .avatar {
-             img {
-               border-collapse: separate;
-               @include border-radius(100px);
-             }
-           }
+
        }
      }
    }
@@ -299,7 +357,9 @@ $global-radius: 4px;
    color: #fff;
    text-align: center;
    @include vertical-align;
- }
+   text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+                0px 8px 13px rgba(0,0,0,0.1),
+                0px 18px 23px rgba(0,0,0,0.1); }
   .row {
     @include vertical-align;
   }
@@ -379,7 +439,7 @@ $global-radius: 4px;
 
   //**********FOOTER**********//
 .footer {
-  background-color: #292c2f;
+  background-color: #2b303b;
   text-align: center;
   font-size: 1.2rem;
   padding: 1.5rem;
