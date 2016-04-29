@@ -48,6 +48,7 @@ class LocationsController < ApplicationController
     if Rails.env.test? || Rails.env.development?
       current_location ||= Geocoder.search("50.78.167.161").first
     else
+      binding.pry
       current_location ||= request.location
     end
     @lat = current_location.data["latitude"]
