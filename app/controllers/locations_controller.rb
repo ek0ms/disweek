@@ -48,7 +48,6 @@ class LocationsController < ApplicationController
     if Rails.env.test? || Rails.env.development?
       current_location ||= Geocoder.search("50.78.167.161").first
     else
-      binding.pry
       current_location ||= request.location
     end
     @lat = current_location.data["latitude"]
@@ -59,10 +58,10 @@ class LocationsController < ApplicationController
   def create_locations
     @places = get_places
     @places.each do |place|
-      response = Net::HTTP.get_response(URI("https://api.instagram.com/v1/locations/#{place["id"]}/media/recent?access_token=393459182.5550f72.40571a65e1074b8f95e17a89146768e3"))
-      body = JSON.parse(response.body)["data"]
-      if !body.nil?
-        if !body.empty?
+      # response = Net::HTTP.get_response(URI("https://api.instagram.com/v1/locations/#{place["id"]}/media/recent?access_token=393459182.5550f72.40571a65e1074b8f95e17a89146768e3"))
+      # body = JSON.parse(response.body)["data"]
+      # if !body.nil?
+      #   if !body.empty?
           if Location.where(insta_id: place["id"]).empty? && place["id"] != "0"
             new_place = Location.new(
               latitude: place["latitude"],
@@ -83,8 +82,8 @@ class LocationsController < ApplicationController
             end
             @current_search << old_place
           end
-        end
-      end
+      #   end
+      # end
     end
   end
 end
