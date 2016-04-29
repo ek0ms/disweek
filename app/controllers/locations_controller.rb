@@ -11,7 +11,7 @@ class LocationsController < ApplicationController
       @ordered_search = Location.where(id: @current_search.map(&:id)).order(
         popularity: :desc)
     else
-      @ordered_search = []
+      render "welcome/index"
     end
   end
 
@@ -58,25 +58,31 @@ class LocationsController < ApplicationController
   def create_locations
     @places = get_places
     @places.each do |place|
-      if Location.where(insta_id: place["id"]).empty? && place["id"] != "0"
-        new_place = Location.new(
-          latitude: place["latitude"],
-          longitude: place["longitude"]
-        )
-        new_place.reverse_geocode
-        new_place.name = place["name"]
-        new_place.insta_id = place["id"]
-        new_place.save
-        if !new_place.create_photos.empty?
-          new_place.update_location_popularity
+      response = Net::HTTP.get_response(URI("https://api.instagram.com/v1/locations/#{place["id"]}/media/recent?access_token=393459182.5550f72.40571a65e1074b8f95e17a89146768e3"))
+      body = JSON.parse(response.body)["data"]
+      if !body.nil?
+        if !body.empty?
+          if Location.where(insta_id: place["id"]).empty? && place["id"] != "0"
+            new_place = Location.new(
+              latitude: place["latitude"],
+              longitude: place["longitude"]
+            )
+            new_place.reverse_geocode
+            new_place.name = place["name"]
+            new_place.insta_id = place["id"]
+            new_place.save
+            if !new_place.create_photos.empty?
+              new_place.update_location_popularity
+            end
+            @current_search << new_place
+          elsif !Location.where(insta_id: place["id"]).empty? && place["id"] != "0"
+            old_place = Location.where(insta_id: place["id"]).first
+            if !old_place.create_photos.empty?
+              old_place.update_location_popularity
+            end
+            @current_search << old_place
+          end
         end
-        @current_search << new_place
-      elsif !Location.where(insta_id: place["id"]).empty? && place["id"] != "0"
-        old_place = Location.where(insta_id: place["id"]).first
-        if !old_place.create_photos.empty?
-          old_place.update_location_popularity
-        end
-        @current_search << old_place
       end
     end
   end

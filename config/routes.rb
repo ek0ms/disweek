@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root 'locations#index'
+  get '/welcome/index'
+  root 'welcome#index'
   resources :locations do
     resources :photos
   end

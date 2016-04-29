@@ -15,6 +15,7 @@ gem 'omniauth-instagram', github: 'ropiku/omniauth-instagram'
 gem 'omniauth'
 gem 'instagram'
 gem 'geocoder'
+gem 'compass-rails'
 
 group :development, :test do
   gem 'dotenv-rails'
