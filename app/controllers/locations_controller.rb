@@ -2,7 +2,6 @@ class LocationsController < ApplicationController
   def index
     if params[:search] == "Current Location"
       @current_search = []
-      @things = []
       create_locations_from_ip
       @ordered_search = Location.where(id: @current_search.map(&:id)).order(
         popularity: :desc)
@@ -57,10 +56,8 @@ class LocationsController < ApplicationController
   end
 
   def create_locations
-    @things = []
     @places = get_places
     @places.each do |place|
-      @things << place
       response = Net::HTTP.get_response(URI("https://api.instagram.com/v1/locations/#{place["id"]}/media/recent?access_token=393459182.5550f72.40571a65e1074b8f95e17a89146768e3"))
       body = JSON.parse(response.body)["data"]
       if !body.nil?
