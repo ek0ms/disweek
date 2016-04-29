@@ -30,11 +30,13 @@
               </div>
           </div>
         </div>
-        <%= form_for @photo do |f|%>
-        <%= f.hidden_field :photo_id, multiple: true, value: photo.id %>
-        <%= f.hidden_field :location_id, multiple: true, value: photo.location_id %>
-        <%= f.submit "Add", class: "button" %>
-        <% end %>
+        <div class="add-button">
+          <%= form_for @photo do |f|%>
+          <%= f.hidden_field :photo_id, multiple: true, value: photo.id %>
+          <%= f.hidden_field :location_id, multiple: true, value: photo.location_id %>
+          <%= f.submit "Add", class: "button" %>
+          <% end %>
+      </div>
       </div>
     <% end %>
   </div>
