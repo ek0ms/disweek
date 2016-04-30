@@ -70,12 +70,12 @@ $global-radius: 4px;
   }
 
   .image-overlay-content {
-    width: 100%;
     height: 100%;
-    position: absolute;
+    left: 0;
     overflow: hidden;
+    position: absolute;
     top: 0;
-    left: 0
+    width: 100%;
     }
 
 // modifier classes
@@ -83,9 +83,9 @@ $global-radius: 4px;
   .overlay-fade-in {
 
     p {
-      letter-spacing: 0.15em;
       color: #f4f4f4;
       font-size: 28px;
+      letter-spacing: 0.15em;
       opacity: 0;
       transition: all 0.2s linear;
     }
@@ -95,8 +95,8 @@ $global-radius: 4px;
     }
 
     .image-overlay-content {
-      opacity: 0;
       background-color: rgba(0,0,0, 0.4);
+      opacity: 0;
       transition: all 0.4s ease-in-out;
     }
 
@@ -110,16 +110,16 @@ $global-radius: 4px;
     }
 
     .button {
-      display: inline-block;
-      text-decoration: none;
-      padding: 7px 14px;
       background: #FFF;
-      color: #222;
-      text-transform: uppercase;
-      box-shadow: 0 0 1px #000;
-      position: relative;
       border: 1px solid #999;
+      box-shadow: 0 0 1px #000;
+      color: #222;
+      display: inline-block;
       opacity: 0;
+      padding: 7px 14px;
+      position: relative;
+      text-decoration: none;
+      text-transform: uppercase;
       transition: all 0.2s ease-in-out;
 
       &:hover {
@@ -146,9 +146,10 @@ $global-radius: 4px;
       transition-delay: 0.1s;
       }
 
-    &:hover .button {
-      transition-delay: 0.2s;
-    }
+    &:hover
+      .button {
+        transition-delay: 0.2s;
+      }
   }
 }
 
