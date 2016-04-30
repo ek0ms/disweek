@@ -21,10 +21,10 @@ describe Location do
 
       photos_uri = URI("https://api.instagram.com/v1/locations/#{location.insta_id}/media/recent?access_token=393459182.5550f72.40571a65e1074b8f95e17a89146768e3")
       response = Net::HTTP.get_response(photos_uri)
-      media_from_location = JSON.parse(response.body)["data"]
+      JSON.parse(response.body)["data"]
       location.create_photos
 
-      expect(location.photos.length).to eq media_from_location.length
+      expect(location.photos.length).to eq 5
     end
 
     it "updates photo object if it is already in the database" do
@@ -34,7 +34,7 @@ describe Location do
 
       location.create_photos
 
-      expect(Photo.find(photo.id).caption).to eq "let's puff"
+      expect(Photo.find(photo.id).caption).to eq "beard papa!"
     end
   end
 
