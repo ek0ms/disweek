@@ -19,14 +19,16 @@
               <img src="<%=current_user.pic%>" height="40" width="40">
             </span>
                <%=current_user.nickname%>
-         </a>
+           </a>
           <ul class="submenu menu vertical" data-submenu>
-            <li><a href="https://www.instagram.com/<%=current_user.nickname%>" target="_blank" style="target-new: tab;">IG Profile</li>
+            <li><a href="https://www.instagram.com/<%=current_user.nickname%>" target="_blank" style="target-new: tab;">IG Profile</a></li>
             <li><a href="<%=destroy_user_session_path%>" data-method="delete">Sign Out</a></li>
           </ul>
         </li>
       <% else %>
-        <li><a href="<%= omniauth_authorize_path(:user, :instagram) %>">Instagram Sign In</a></li>
+        <li><a href="<%= omniauth_authorize_path(:user, :instagram) %>"><span class="avatar">
+          <img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/df61fd9361187.560cd336ce5b2.png" height="45" width="45">
+        </span></a></li>
       <% end %>
     </ul>
   </div>

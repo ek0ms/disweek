@@ -18,16 +18,25 @@
           <div class="image-wrapper overlay-fade-in">
             <img src="<%=photo.low_res_link%>" class="bigger-photo">
               <div class="image-overlay-content">
-                <h2>soemthing</h2>
-                <p class="price">morethings</p>
+                <h2><a href="https://www.instagram.com/<%=photo.username%>" target="_blank" style="target-new: tab;">
+                  <span class="avatar">
+                    <img src="<%=photo.profile_picture%>" height="40" width="40">
+                  </span>
+                     <%= photo.username %>
+                 </a></h2>
+                <h1 class="price">
+                  <%=photo.caption%>
+                </h1>
               </div>
           </div>
         </div>
-        <%= form_for @photo do |f|%>
-        <%= f.hidden_field :photo_id, multiple: true, value: photo.id %>
-        <%= f.hidden_field :location_id, multiple: true, value: photo.location_id %>
-        <%= f.submit "Add", class: "button" %>
-        <% end %>
+        <div class="add-button">
+          <%= form_for @photo do |f|%>
+          <%= f.hidden_field :photo_id, multiple: true, value: photo.id %>
+          <%= f.hidden_field :location_id, multiple: true, value: photo.location_id %>
+          <%= f.submit "Add", class: "button" %>
+          <% end %>
+      </div>
       </div>
     <% end %>
   </div>
