@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'support/omniauth.rb'
 
-feature "list of locations" do
+feature "current location search" do
   background do
    set_omniauth()
   end
@@ -14,7 +14,7 @@ feature "list of locations" do
     within 'form' do
       find('.icon').click
     end
-    
+
     expect(page).to have_content("TRENDING")
     expect(page).to have_content("Woodland Park Zoo")
     expect(page).to have_content("Green Lake Park")
