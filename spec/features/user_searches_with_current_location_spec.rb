@@ -10,14 +10,13 @@ feature "list of locations" do
     visit root_path
 
     find("#log_in").click
-    fill_in 'search', with: "33 Harrison Ave, Boston, MA"
+    fill_in 'search', with: "Current Location"
     within 'form' do
       find('.icon').click
     end
-
+    
     expect(page).to have_content("TRENDING")
-    expect(page).to have_content("Beard Papa's Boston")
-    expect(page).to have_content("China Pearl Restaurant - Boston")
-    expect(page).to have_content("Avana Sushi Boston")
+    expect(page).to have_content("Woodland Park Zoo")
+    expect(page).to have_content("Green Lake Park")
   end
 end
