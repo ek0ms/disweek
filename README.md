@@ -27,4 +27,4 @@ Future Features
 * Speeding up search query
 * Better unit and feature test coverage
 
-## what's going on DisWeek? ¯\\\_(ツ)_/¯
+## what's goin' on DisWeek? ¯\\\_(ツ)_/¯
