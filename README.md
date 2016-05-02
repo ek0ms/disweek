@@ -29,5 +29,4 @@ Future Features
 
 
 
-what's going on DisWeek?
-¯\\\_(ツ)_/¯
+# what's going on DisWeek? ¯\\\_(ツ)_/¯
