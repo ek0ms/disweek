@@ -31,10 +31,12 @@
           </div>
         </div>
         <div class="add-button">
-          <%= form_for @photo do |f|%>
-          <%= f.hidden_field :photo_id, multiple: true, value: photo.id %>
-          <%= f.hidden_field :location_id, multiple: true, value: photo.location_id %>
-          <%= f.submit "Add", class: "button" %>
+          <% if current_user.photos.where(link: photo.link).empty? %>
+            <%= form_for @photo do |f|%>
+            <%= f.hidden_field :photo_id, multiple: true, value: photo.id %>
+            <%= f.hidden_field :location_id, multiple: true, value: photo.location_id %>
+            <%= f.submit "Add", class: "button" %>
+            <% end %>
           <% end %>
       </div>
       </div>
