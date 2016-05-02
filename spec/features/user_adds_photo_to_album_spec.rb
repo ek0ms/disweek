@@ -23,4 +23,11 @@ feature "add photo to album" do
     visit user_photos_path
     expect(page).to have_css("img[src*='cdninstagram']")
   end
+
+  scenario 'no add button if not logged in' do
+    visit location_path(@location)
+    expect(page).to have_content(@location.name)
+
+    expect(page).to_not have_css('input.button')
+  end
 end
