@@ -3,7 +3,7 @@ require 'support/omniauth.rb'
 
 feature "current location search" do
   background do
-   set_omniauth()
+    set_omniauth
   end
 
   scenario 'successfully views list after search' do

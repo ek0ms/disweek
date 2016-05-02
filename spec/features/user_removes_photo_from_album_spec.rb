@@ -9,10 +9,10 @@ feature "remove photo from album" do
   end
 
   background do
-   set_omniauth()
+    set_omniauth
   end
 
-  scenario 'successfully views photo after adding' do
+  scenario 'successfully removes photo' do
     visit root_path
     find("#log_in").click
 
@@ -22,7 +22,6 @@ feature "remove photo from album" do
     click_button('Add', match: :first)
     visit user_photos_path
     expect(page).to have_css('div.remove-button')
-    
     click_button('Remove', match: :first)
     expect(page).to_not have_css('div.remove-button')
   end

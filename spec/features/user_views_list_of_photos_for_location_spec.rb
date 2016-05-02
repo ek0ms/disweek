@@ -9,7 +9,7 @@ feature "list of photos for location" do
   end
 
   background do
-   set_omniauth()
+    set_omniauth
   end
 
   scenario 'successfully views list after search' do

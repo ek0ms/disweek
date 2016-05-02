@@ -9,7 +9,7 @@ feature "add photo to album" do
   end
 
   background do
-   set_omniauth()
+    set_omniauth
   end
 
   scenario 'successfully views photo after adding' do
