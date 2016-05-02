@@ -1,6 +1,4 @@
 GIT
-  remote: git://github.com/ropiku/omniauth-instagram.git
-  revision: 9f88ca3cccd02e88d3117520a9ff8937fb020b1b
   specs:
     omniauth-instagram (1.0.2)
       omniauth (~> 1)

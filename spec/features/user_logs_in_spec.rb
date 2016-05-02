@@ -3,7 +3,7 @@ require 'support/omniauth.rb'
 
 feature "log in" do
   background do
-   set_omniauth()
+    set_omniauth
   end
 
   scenario 'successfully logs in with Instagram credentials' do

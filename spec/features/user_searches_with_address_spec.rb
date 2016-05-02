@@ -3,7 +3,7 @@ require 'support/omniauth.rb'
 
 feature "address search" do
   background do
-   set_omniauth()
+    set_omniauth
   end
 
   scenario 'successfully searches after log in' do
