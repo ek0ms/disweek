@@ -31,7 +31,8 @@
           </div>
         </div>
         <div class="add-button">
-          <% if current_user.photos.where(link: photo.link).empty? %>
+          <% if current_user.nil? %>
+          <% elsif current_user.photos.where(link: photo.link).empty? %>
             <%= form_for @photo do |f|%>
             <%= f.hidden_field :photo_id, multiple: true, value: photo.id %>
             <%= f.hidden_field :location_id, multiple: true, value: photo.location_id %>
